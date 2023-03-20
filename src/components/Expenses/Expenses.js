@@ -13,7 +13,7 @@ const Expenses = ({ expenses,expenseYears }) => {
   const filteredExpenses = expenses.filter(
     (expense) => expense.date.getFullYear() === selectedYear
   );
-  
+
 
 
     return (
