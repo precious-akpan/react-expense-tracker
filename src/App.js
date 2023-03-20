@@ -7,38 +7,38 @@ import { useState } from "react";
     {
       id: "e1",
       title: "Toilet Paper",
-      amount: 94.12,
+      amount: 940.12,
       date: new Date(2020, 7, 14),
     },
-    { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12) },
+    { id: "e2", title: "New TV", amount: 799000.49, date: new Date(2021, 2, 12) },
     {
       id: "e3",
       title: "Car Insurance",
-      amount: 294.67,
+      amount: 2940.67,
       date: new Date(2021, 2, 28),
     },
     {
       id: "e4",
       title: "New Desk (Wooden)",
-      amount: 450,
+      amount: 45000,
       date: new Date(2021, 5, 12),
     },
   ];
 const App = () => {
-
   const [expenses, setExpenses] = useState(dummy_expenses);
-
   const handleAddExpense = (addedExpense) => {
     setExpenses((prevState) => {
       return [addedExpense, ...prevState ];
     });
-  };
 
+  };
+    const set =new Set(); expenses.map(expense => set.add(expense.date.getFullYear()))
+  const expenseYears = Array.from(set)
+  console.log(set);
   return (
     <div className="App">
-      {/*<h1>Let's get started!</h1>*/}
       <NewExpense addExpense={handleAddExpense} />
-      <Expenses expenses={expenses} />
+      <Expenses expenses={expenses} expenseYears={expenseYears}/>
     </div>
   );
 };

@@ -2,9 +2,9 @@ import './NewExpense.css'
 import ExpenseForm from "./ExpenseForm";
 
 const NewExpense = ({addExpense}) => {
-    const handleSaveExpense = (exportedDate) => {
+    const handleSaveExpense = (exportedData) => {
         const expenseDate = {
-            ...exportedDate,
+            ...exportedData,
             id: Math.floor(1000 * Math.random().toFixed(3).toString())
         }
 
