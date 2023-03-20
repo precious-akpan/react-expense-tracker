@@ -1,42 +1,56 @@
 import "./ExpenseForm.css";
-import {useState} from "react";
+import { useState } from "react";
 
-const ExpenseForm = () => {
-  // const [expenseTitle, setExpenseTitle] = useState("");
-  // const [expenseAmount, setExpenseAmount] = useState("");
-  // const [expenseDate, setExpenseDate] = useState(new Date().toDateString());
+const ExpenseForm = ({onSaveExpense}) => {
+  const [expenseTitle, setExpenseTitle] = useState("");
+  const [expenseAmount, setExpenseAmount] = useState("");
+  const [expenseDate, setExpenseDate] = useState('');
 
-  const [userInput, setUserInput]=useState({
-    expenseTitle: '',
-    expenseAmount: '',
-    expenseDate: '',
-  })
+  // const [userInput, setUserInput] = useState({
+  //   expenseTitle: "",
+  //   expenseAmount: "",
+  //   expenseDate: "",
+  // });
 
   const handleTitleChange = (event) => {
-    let inputValue = event.target.value;
-    // setExpenseTitle(inputCapitalised);
-    event.target.value = inputValue.slice(0, 1).toUpperCase() + inputValue.slice(1);
+    setExpenseTitle(event.target.value.slice(0, 1).toUpperCase() + event.target.value.slice(1).toLowerCase());
     // setUserInput({
     //   ...userInput,
     //   expenseTitle: event.target.value
     // })
-
-    setUserInput((prevState) => ({...prevState, expenseTitle: event.target.value}));
-  }
+    //
+    // setUserInput(prevState => ({
+    //   ...prevState,
+    //   expenseTitle: event.target.value,
+    // }), );
+  };
   const handleAmountChange = (event) => {
     console.log(event.target.value);
-    // setExpenseAmount(event.target.value);
+    setExpenseAmount(event.target.value);
   };
   const handleDateChange = (event) => {
     console.log(event.target.value);
-    // setExpenseDate(event.target.value);
+    setExpenseDate(event.target.value);
+  };
+  const handleFormSubmit = (event) => {
+    event.preventDefault()
+    const expenseData = {
+      title: expenseTitle,
+      amount: expenseAmount,
+      date: new Date(expenseDate)
+    }
+
+    onSaveExpense(expenseData);
+    setExpenseDate('')
+    setExpenseAmount('')
+    setExpenseTitle('')
   };
   return (
-    <form action="">
+    <form action="" onSubmit={handleFormSubmit}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={handleTitleChange} />
+          <input type="text" value={expenseTitle} onChange={handleTitleChange} autoFocus/>
         </div>{" "}
         <div className="new-expense__control">
           <label>Amount</label>
@@ -44,12 +58,13 @@ const ExpenseForm = () => {
             type="number"
             min={0.01}
             step={0.01}
+            value={expenseAmount}
             onChange={handleAmountChange}
           />
         </div>
         <div className="new-expense__control">
           <label>Date</label>
-          <input type="datetime-local" onChange={handleDateChange} />
+          <input type="datetime-local" value={expenseDate} onChange={handleDateChange} min={"2000-01-02"}/>
         </div>
       </div>
       <div className="new-expense__actions">

@@ -1,9 +1,17 @@
 import './NewExpense.css'
 import ExpenseForm from "./ExpenseForm";
 
-const NewExpense = () => {
+const NewExpense = ({addExpense}) => {
+    const handleSaveExpense = (exportedDate) => {
+        const expenseDate = {
+            ...exportedDate,
+            id: Math.floor(1000 * Math.random().toFixed(3).toString())
+        }
+
+        addExpense(expenseDate);
+    }
     return <div className={'new-expense'}>
-        <ExpenseForm/>
+        <ExpenseForm onSaveExpense={handleSaveExpense}/>
     </div>
 }
 
